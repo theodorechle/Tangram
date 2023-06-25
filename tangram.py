@@ -5,7 +5,7 @@ from shapely.affinity import rotate, scale
 from os import listdir, mkdir
 
 UTILS_DIR = "utils"
-DIR_NAME = "images"
+IMAGE_DIR = "images"
 FPS = 60
 CASE_SIZE = 10
 SCREEN_SIZE = 1500, 1000
@@ -19,8 +19,8 @@ COLORS = {
     "grid": "#0000cc",
 }
 
-if DIR_NAME not in listdir():
-    mkdir(DIR_NAME)
+if IMAGE_DIR not in listdir():
+    mkdir(IMAGE_DIR)
 
 
 def rotate_polygon(polygon, angle):
@@ -46,7 +46,7 @@ def draw_all(clicked, taked_polygon, relative_mouse_pos):
 
     # draw each shape
     for index_, choosed_shape in enumerate(shapes):
-        pygame.draw.polygon(screen, COLORS["shape"], choosed_shape)
+        pygame.draw.polygon(screen, COLORS["shape"], choosed_shape, edge)
         if clicked: # check which shape is potentially clicked
             if Polygon(choosed_shape).contains(Point(pos)):
                 taked_polygon = index_
@@ -70,6 +70,7 @@ grid = False
 taked_polygon = None
 relative_mouse_pos = None
 writing = False
+edge = False
 
 
 pygame.init()
@@ -131,14 +132,16 @@ while run:
                         shapes[taked_polygon] = mirror_polygon(shapes[taked_polygon])
                 elif event.key == pygame.K_g:
                     grid = not grid
+                elif event.key == pygame.K_e:
+                    edge = not edge
     
         elif event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == screenshot_button:
                 name = f'{file_name.get_text()}.jpg'
-                if name in listdir(DIR_NAME):
+                if name in listdir(IMAGE_DIR):
                     error.set_text("Un fichier porte déjà ce nom.")
                 else:
-                    name = f'{DIR_NAME}/{name}'
+                    name = f'{IMAGE_DIR}/{name}'
                     error.set_text("")
                     capture = True
 
