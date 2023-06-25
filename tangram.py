@@ -83,7 +83,7 @@ screen = pygame.display.set_mode(SCREEN_SIZE)
 
 manager = pygame_gui.UIManager(SCREEN_SIZE, f"{UTILS_DIR}/theme.json")
 
-file_name = pygame_gui.elements.UITextEntryBox((LIST_LENGTH + 10, 5, SCREEN_SIZE[0] - LIST_LENGTH - 15, 40), "tangram", manager)
+file_name = pygame_gui.elements.UITextEntryBox(pygame.Rect(LIST_LENGTH + 10, 5, SCREEN_SIZE[0] - LIST_LENGTH - 15, 40), "tangram", manager)
 screenshot_button = pygame_gui.elements.UIButton((LIST_LENGTH // 2 + SCREEN_SIZE[0] // 2 - 70, 50), "Capture d'écran", manager)
 error = pygame_gui.elements.UILabel(pygame.Rect(LIST_LENGTH + 5, 50, 400, 50), "", manager)
 
