@@ -2,6 +2,7 @@ Français :
 
 Avec ce programme, vous pouvez utiliser les formes d'un tangram.
 
+&nbsp;
 
 Contrôles :
 
@@ -17,17 +18,19 @@ Contrôles :
 
 -G pour afficher la grille sur laquelle les formes s'alignent
 
+&nbsp;
 
 ATTENTION :
 
 Les rotations génèrent un petit décalage qui peut être visible, spécialement avec la grille.
 
-
+&nbsp;
 
 English :
 
 With this program, you can use the tangram's shapes.
 
+&nbsp;
 
 Controls :
 
@@ -43,6 +46,7 @@ Controls :
 
 -G to draw the grid on which the shapes align.
 
+&nbsp;
 
 WARNING :
 

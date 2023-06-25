@@ -23,14 +23,14 @@ if IMAGE_DIR not in listdir():
     mkdir(IMAGE_DIR)
 
 
-def rotate_polygon(polygon, angle):
+def rotate_shape(polygon, angle):
     return [list(i) for i in rotate(Polygon(polygon), angle).exterior.coords]
     
-def mirror_polygon(polygon):
+def mirror_shape(polygon):
     return [list(i) for i in scale(Polygon(polygon), yfact=-1, origin=(1, 0)).exterior.coords]
     
 
-def draw_all(clicked, taked_polygon, relative_mouse_pos):
+def draw_all(clicked, shapes_taken, relative_mouse_pos):
     # vertical line of the list
     pygame.draw.line(screen, COLORS["lines"], (LIST_LENGTH, 0), (LIST_LENGTH, SCREEN_SIZE[1]), 5)
     pygame.draw.line(screen, COLORS["lines"], (LIST_LENGTH, SCREENSHOT_PLACE_SIZE-5), (SCREEN_SIZE[0], SCREENSHOT_PLACE_SIZE-5), 5)
@@ -49,11 +49,11 @@ def draw_all(clicked, taked_polygon, relative_mouse_pos):
         pygame.draw.polygon(screen, COLORS["shape"], choosed_shape, edge)
         if clicked: # check which shape is potentially clicked
             if Polygon(choosed_shape).contains(Point(pos)):
-                taked_polygon = index_
+                shapes_taken = index_
                 relative_mouse_pos = pos[0] - choosed_shape[0][0], pos[1] - choosed_shape[0][1]
                 clicked = False
 
-    return taked_polygon, relative_mouse_pos
+    return shapes_taken, relative_mouse_pos
 
 shapes = [
     [[5, 5], [285, 5], [145, 145]],
@@ -67,7 +67,7 @@ shapes = [
 
 
 grid = False
-taked_polygon = None
+shapes_taken = None
 relative_mouse_pos = None
 writing = False
 edge = False
@@ -107,29 +107,29 @@ while run:
             clicked = True
             writing = file_name.rect.collidepoint(event.pos)
         elif event.type == pygame.MOUSEBUTTONUP:
-            if taked_polygon != None:
-                choosed_shape = shapes[taked_polygon]
+            if shapes_taken != None:
+                choosed_shape = shapes[shapes_taken]
                 first_dot = choosed_shape[0] = choosed_shape[0]
                 pos_change = first_dot[0] - round(first_dot[0]/CASE_SIZE) * CASE_SIZE, first_dot[1] - round(first_dot[1]/CASE_SIZE) * CASE_SIZE
                 for dot in choosed_shape:
                     dot[0] -= pos_change[0]
                     dot[1] -= pos_change[1]
 
-            taked_polygon = None
+            shapes_taken = None
 
         elif event.type == pygame.KEYDOWN:
             if not writing:
                 if event.key == pygame.K_ESCAPE:
                     run = False
                 elif event.key == pygame.K_t:
-                    if taked_polygon != None:
-                        shapes[taked_polygon] = rotate_polygon(shapes[taked_polygon], ROTATION_ANGLE)
+                    if shapes_taken != None:
+                        shapes[shapes_taken] = rotate_shape(shapes[shapes_taken], ROTATION_ANGLE)
                 elif event.key == pygame.K_r:
-                    if taked_polygon != None:
-                        shapes[taked_polygon] = rotate_polygon(shapes[taked_polygon], -ROTATION_ANGLE)
+                    if shapes_taken != None:
+                        shapes[shapes_taken] = rotate_shape(shapes[shapes_taken], -ROTATION_ANGLE)
                 elif event.key == pygame.K_m:
-                    if taked_polygon != None:
-                        shapes[taked_polygon] = mirror_polygon(shapes[taked_polygon])
+                    if shapes_taken != None:
+                        shapes[shapes_taken] = mirror_shape(shapes[shapes_taken])
                 elif event.key == pygame.K_g:
                     grid = not grid
                 elif event.key == pygame.K_e:
@@ -145,13 +145,13 @@ while run:
                     error.set_text("")
                     capture = True
 
-    if taked_polygon != None:
+    if shapes_taken != None:
         mouse_pos = pygame.mouse.get_pos()
 
-        first_dot = shapes[taked_polygon][0]
+        first_dot = shapes[shapes_taken][0]
         dot_minus_mouse_pos = mouse_pos[0] - first_dot[0], mouse_pos[1] - first_dot[1]
         pos_change = dot_minus_mouse_pos[0] - relative_mouse_pos[0], dot_minus_mouse_pos[1] - relative_mouse_pos[1]
-        for dot in shapes[taked_polygon]:
+        for dot in shapes[shapes_taken]:
             dot[0] += pos_change[0]
             dot[1] += pos_change[1]
 
@@ -159,7 +159,7 @@ while run:
         temp_grid = grid
         grid = False
 
-    taked_polygon, relative_mouse_pos = draw_all(clicked, taked_polygon, relative_mouse_pos)
+    shapes_taken, relative_mouse_pos = draw_all(clicked, shapes_taken, relative_mouse_pos)
     manager.update(time_delta)
     manager.draw_ui(screen)
     
