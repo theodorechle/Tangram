@@ -166,7 +166,6 @@ while run:
     pygame.display.update()
 
     if capture:
-#        rect = pygame.Rect(0, 0, *SCREEN_SIZE)
         rect = pygame.Rect(LIST_LENGTH+5, 100, SCREEN_SIZE[0]-LIST_LENGTH-5, SCREEN_SIZE[1]-100)
         sub = screen.subsurface(rect)
         pygame.image.save(sub, name)
