@@ -89,7 +89,7 @@ file_name = pygame_gui.elements.UITextEntryBox(pygame.Rect(LIST_LENGTH + 10, 5, 
 screenshot_button = pygame_gui.elements.UIButton((LIST_LENGTH // 2 + SCREEN_SIZE[0] // 2 - 70, 50), "Capture d'écran", manager)
 toggle_visibility = pygame_gui.elements.UIButton((LIST_LENGTH + 700, 50), "Montrer/Cacher les contours (E)", manager)
 error = pygame_gui.elements.UILabel(pygame.Rect(LIST_LENGTH + 5, 40, 400, 50), "", manager, object_id=ObjectID(object_id="#error"))
-pygame_gui.elements.UILabel(pygame.Rect(LIST_LENGTH + 890, 40, 400, 50), "R/T : Tourner, M: Miroir", manager, object_id=ObjectID(object_id="#keys"))
+pygame_gui.elements.UILabel(pygame.Rect(LIST_LENGTH + 890, 40, 400, 50), "R/T : Tourner, M: Miroir, G : Grille", manager, object_id=ObjectID(object_id="#keys"))
 
 pygame.key.set_repeat(200, 200)
 

@@ -11,6 +11,10 @@
         "colours":
         {
             "normal_text": "#000000"
+        },
+        "font":
+        {
+            "size": 10
         }
     }
 }
