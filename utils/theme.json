@@ -1,9 +1,16 @@
 {
-    "label":
+    "#error":
     {
         "colours":
         {
             "normal_text": "#ee1111"
+        }
+    },
+    "#keys":
+    {
+        "colours":
+        {
+            "normal_text": "#000000"
         }
     }
 }

@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+from pygame_gui.core import ObjectID
 from shapely.geometry import Polygon, Point
 from shapely.affinity import rotate, scale
 from os import listdir, mkdir
@@ -86,7 +87,9 @@ manager = pygame_gui.UIManager(SCREEN_SIZE, f"{UTILS_DIR}/theme.json")
 
 file_name = pygame_gui.elements.UITextEntryBox(pygame.Rect(LIST_LENGTH + 10, 5, SCREEN_SIZE[0] - LIST_LENGTH - 15, 40), "tangram", manager)
 screenshot_button = pygame_gui.elements.UIButton((LIST_LENGTH // 2 + SCREEN_SIZE[0] // 2 - 70, 50), "Capture d'écran", manager)
-error = pygame_gui.elements.UILabel(pygame.Rect(LIST_LENGTH + 5, 50, 400, 50), "", manager)
+toggle_visibility = pygame_gui.elements.UIButton((LIST_LENGTH + 700, 50), "Montrer/Cacher les contours (E)", manager)
+error = pygame_gui.elements.UILabel(pygame.Rect(LIST_LENGTH + 5, 40, 400, 50), "", manager, object_id=ObjectID(object_id="#error"))
+pygame_gui.elements.UILabel(pygame.Rect(LIST_LENGTH + 890, 40, 400, 50), "R/T : Tourner, M: Miroir", manager, object_id=ObjectID(object_id="#keys"))
 
 pygame.key.set_repeat(200, 200)
 
@@ -144,6 +147,8 @@ while run:
                     name = f'{IMAGE_DIR}/{name}'
                     error.set_text("")
                     capture = True
+            elif event.ui_element == toggle_visibility:
+                edge = not edge
 
     if shapes_taken != None:
         mouse_pos = pygame.mouse.get_pos()
