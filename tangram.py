@@ -97,12 +97,12 @@ clock = pygame.time.Clock()
 
 run = True
 while run:
-    clock.tick(FPS)
+    actual_fps = clock.tick(FPS)
     screen.fill(COLORS["screen"])
     clicked = False
     capture = False
     for event in pygame.event.get():
-        time_delta=clock.tick(60)/1000.0
+        time_delta = actual_fps / 1000.0
         manager.process_events(event)
         if event.type == pygame.QUIT:
             run = False
